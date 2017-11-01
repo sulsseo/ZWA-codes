@@ -1,0 +1,15 @@
+nav {
+    width: 150px;
+    /*zvyrazneni pro prehlednost*/
+    /* background-color: lime; */
+    float: left; /* obtekani textu */
+}
+
+article {
+    margin-left: 150px;
+    /*height: 35px; overflow: hidden;*/
+}
+
+footer {
+    clear: left;
+}
