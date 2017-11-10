@@ -1,0 +1,67 @@
+body {
+    font-family: knowledge-reg, helvetica, sans-serif;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 10em;
+    background-color: darkgrey;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /*position: fixed;*/
+    /*top: 0;*/
+    width: 100%;
+    overflow: hidden;
+    background-color: dodgerblue;
+}
+
+li .nav-social {
+    float: right;
+}
+
+/* group of list */
+li {
+    float: left;
+}
+
+/* link in list element global style */
+li a {
+    color: #fff;
+    display: block;
+    padding: 8px 20px;
+    text-decoration: none;
+}
+
+/* list element after hover */
+li a:hover {
+    color: #fff;
+    background-color: #555;
+}
+
+.calendar-header {
+    /*font-size: 3em;*/
+    text-align: center;
+    width: 5em;
+    height: 5em;
+    color: black;
+    background-color: white;
+    float: right;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.calendar-header .day {
+    font-size: 3em;
+}
+
+.calendar-header .month {
+    font-size: 1em;
+}
+
+
