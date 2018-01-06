@@ -1,8 +1,10 @@
 <?php
+require("php/db_lib.php");
 ob_start();
 
 function kontrola($user) {
     echo "kontrola: ".$user;
+    print_r(get_user($user));
     if ($user == "kuba@trmal") {
         return true;
     } else {
@@ -37,6 +39,13 @@ if (isset($_POST["user"])) {
 </head>
 
 <body>
+    <nav>
+        <ul class="horizontal-nav">
+            <li class="nav-item">
+                <a href="index.html">Home</a>
+            </li>
+        </ul>
+    </nav>
     <form class="login-form" method="POST" action="login.php">
         <div class="container">
             <img src="images/avatar.png" alt="avatar picture">

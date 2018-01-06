@@ -27,13 +27,7 @@ function connect() {
  */
 function get_article($id) {
     $table = 'article';
-
-    if (!$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME)) {
-        echo "Error: Unable to connect to MySQL." . PHP_EOL;
-        echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-        echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-        exit;
-    }
+    $link = connect();
 
     // build query
     $sql = "SELECT * FROM `".$table."` WHERE `id_article`=".$id;
@@ -52,7 +46,16 @@ function get_article($id) {
  * Get user row from database
  */
 function get_user($username) {
+    $table = 'user';
+    $link = connect();
 
+    // build query
+    $sql = "SELECT * FROM`".$table."`WHERE `username`=".$username;
+    $result = $link->query($sql);
+
+    mysqli_close($link);
+    echo $result;
+    return $result->fetch_assoc();
 }
 
 ?>

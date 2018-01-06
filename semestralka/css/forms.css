@@ -22,7 +22,7 @@ input[type=email], input[type=password] {
 
 /* button style */
 button {
-    background-color: rgb(99, 115, 210);
+    background-color: dodgerblue;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
