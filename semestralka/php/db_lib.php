@@ -30,7 +30,7 @@ function get_article($id) {
     $link = connect();
 
     // build query
-    $sql = "SELECT * FROM `".$table."` WHERE `id_article`=".$id;
+    $sql = "SELECT * FROM $table WHERE id_article=$id";
     $result = $link->query($sql);
 
     // close connection
@@ -50,12 +50,81 @@ function get_user($username) {
     $link = connect();
 
     // build query
-    $sql = "SELECT * FROM`".$table."`WHERE `username`=".$username;
+    $sql = "SELECT * FROM $table WHERE username=$username";
     $result = $link->query($sql);
 
     mysqli_close($link);
     echo $result;
     return $result->fetch_assoc();
+}
+
+/**
+ * Add new user to db after registration
+ * 
+ * user table[id, username(email), pass, registration time]
+ */
+function add_user($username, $plain_password) {
+    $table = 'user';
+    $link = connect();
+
+    // unique id for new user
+    $id = uniqid();
+    
+    // get current time 
+    // $reg = date("F Y h:i:s A");
+    $reg = time();
+    
+    // hash password
+    $pass = password_hash($plain_password, PASSWORD_BCRYPT);
+
+    $sql = "INSERT INTO user (id_user, username, password, registration) VALUES ('$id', '$username', '$pass', '$reg')";
+
+    // send builded query
+    if(mysqli_query($link, $sql)){
+        echo "Records inserted successfully.";
+    } else{
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    }
+    
+}
+
+/**
+ * PDO connection. NOT WORK NOW
+ */
+function add_user2($sername, $plain_password) {
+    $conn = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, null);
+    
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // unique id for new user
+    $id = uniqid();
+
+    // get current time 
+    $reg = date("F Y h:i:s A");
+    
+    // hash password
+    $pass = password_hash($plain_password.$username, PASSWORD_DEFAULT);
+
+    try {
+        // proceed transaction
+        $conn->beginTransaction();
+        
+        $conn->exec("INSERT INTO user (id_user, username, password, registration) 
+                VALUES ($id, $username, $pass, $reg)");
+
+        // commit the transaction
+        $conn->commit();
+
+        echo "New records created successfully";
+    
+    } catch(PDOException $e) {
+        // roll back the transaction if something failed
+        $conn->rollback();
+        echo "Error: " . $e->getMessage();
+    }
+
+    $conn = null;
 }
 
 ?>
