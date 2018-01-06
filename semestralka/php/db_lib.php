@@ -48,4 +48,11 @@ function get_article($id) {
     echo $my_row["body"]; 
 }
 
+/**
+ * Get user row from database
+ */
+function get_user($username) {
+
+}
+
 ?>
