@@ -3,7 +3,7 @@
  */
 
 // function get parameter with event information
-function kontrola(event) {
+function email_check(event) {
 
     // search @ in email field
     if (email.value.indexOf("@") === -1) {
@@ -17,23 +17,25 @@ function kontrola(event) {
         email.classList.remove("fail");
         email.classList.add("succ");
     }
+}
 
+function pass_check(event) {
     // both are the same?
-    if (pass.value === pass2.value) {
+    if (pass.value === pass2.value && pass !== "") {
         pass.classList.remove("fail");
         pass2.classList.remove("fail");
-        
+
         pass.classList.add("succ");
         pass2.classList.add("succ");
     } else {
         pass.classList.remove("succ");
         pass2.classList.remove("succ");
-        
+
         pass.classList.add("fail");
         pass2.classList.add("fail");
     }
 
-    console.log(pass.value);console.log(pass2.value);
+    console.log(pass.value); console.log(pass2.value);
 }
 
 var form = document.querySelector("form");
@@ -47,7 +49,7 @@ var pass2 = document.querySelector("[id=password2]");
 
 
 // check if email is correct
-email.addEventListener("blur", kontrola);
+email.addEventListener("blur", email_check);
 
 // check if both passwords are the same
-pass2.addEventListener("blur", kontrola);
+pass2.addEventListener("blur", pass_check);

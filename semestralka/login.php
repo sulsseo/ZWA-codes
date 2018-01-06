@@ -18,6 +18,7 @@ $errorJmeno = ""; // datove promenne
 if (isset($_POST["user"])) {
     $user = $_POST["user"];
     $errorJmeno = "spatne vyplneno";
+    
     if (kontrola($user)) {
     //     // ulozeni do DB
     //     // metodou get se presmeruje na jinou stranku - viz PRG

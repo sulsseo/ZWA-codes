@@ -3,7 +3,7 @@
  */
 
 // function get parameter with event information
-function kontrola(event) {
+function email_check(event) {
 
     // search @ in email field
     if (email.value.indexOf("@") === -1) {
@@ -22,4 +22,4 @@ function kontrola(event) {
 var email = document.querySelector("#email");
 
 // check if email is correct
-email.addEventListener("blur", kontrola);
+email.addEventListener("blur", email_check);

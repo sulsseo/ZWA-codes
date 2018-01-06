@@ -46,16 +46,24 @@ function get_article($id) {
  * Get user row from database
  */
 function get_user($username) {
+
     $table = 'user';
     $link = connect();
 
     // build query
     $sql = "SELECT * FROM $table WHERE username=$username";
+    // $sql = "SELECT * FROM $table WHERE id_user=123";
     $result = $link->query($sql);
 
     mysqli_close($link);
-    echo $result;
-    return $result->fetch_assoc();
+
+    // print_r($result->fetch_assoc());
+    
+    if (!$result) {
+        return null;
+    } else {
+        return $result->fetch_assoc();
+    }
 }
 
 /**
@@ -63,7 +71,7 @@ function get_user($username) {
  * 
  * user table[id, username(email), pass, registration time]
  */
-function add_user($username, $plain_password) {
+function add_user($name, $username, $plain_password) {
     $table = 'user';
     $link = connect();
 
@@ -77,7 +85,7 @@ function add_user($username, $plain_password) {
     // hash password
     $pass = password_hash($plain_password, PASSWORD_BCRYPT);
 
-    $sql = "INSERT INTO user (id_user, username, password, registration) VALUES ('$id', '$username', '$pass', '$reg')";
+    $sql = "INSERT INTO user (id_user, name, username, password, registration) VALUES ('$id', '$name', '$username', '$pass', '$reg')";
 
     // send builded query
     if(mysqli_query($link, $sql)){
