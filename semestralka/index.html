@@ -6,8 +6,12 @@
 
     <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="css/articles.css" rel="stylesheet" type="text/css">
+    <link href="css/forms.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
+
+<!-- header -->
 <header>
     <div class="calendar-header">
         <div class="day">10</div>
@@ -27,6 +31,7 @@
     </ul>
 </nav>
 
+<!-- highlighted article -->
 <section>
     <article class="highlight">
         <h1> Při vichřici padl i jeden z velmi starých smrků v NP České Švýcarsko </h1>
@@ -36,15 +41,35 @@
     </article>
 </section>
 
-<section>
+<section id="formular">
     <form>
-        uzivatelske jmeno: <br>
-        <input type="email" name="user"><br>
-        heslo: <br>
-        <input type="password" name="pass"><br>
-        <input type="submit" name="login" title="Login">
+        <p>
+            <label>Uzivatelske jmeno: <br><input id="email" type="email" name="user"></label>
+        </p>
+        <p>
+            <label>Heslo: <br><input id="password" type="password" name="pass"></label>
+        </p>
+        <p>
+            <input type="submit" name="login">
+        </p>
     </form>
 </section>
 
+<section>
+    <a href="ajax-demo/ajax-demo.html">AJAX demo</a>
+</section>
+
+<section>
+    <a href="php/db_lib.php">databaze</a>
+</section>
+
+<!-- scripts section -->
+<script src="js/loginForm.js"></script>
+
+
 </body>
 </html>
+
+
+
+
