@@ -84,8 +84,7 @@ function add_user($username, $plain_password) {
         echo "Records inserted successfully.";
     } else{
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    }
-    
+    } 
 }
 
 /**

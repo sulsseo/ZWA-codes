@@ -2,8 +2,6 @@
  * Created by kuba on 01.11.17.
  */
 
-// console.log("test");
-
 // function get parameter with event information
 function kontrola(event) {
 
@@ -13,20 +11,15 @@ function kontrola(event) {
         event.preventDefault();
         // email.style.backgroundColor="red";
 
-        // more elegant way is to change class
-        // email.className = "chyba";
-        email.classList.add("failure");
+        email.classList.remove("succ");
+        email.classList.add("fail");
     } else {
-        email.classList.remove("failure");
+        email.classList.remove("fail");
+        email.classList.add("succ");
     }
 }
 
-
-var form = document.querySelector("form");
-
-// add event
-form.addEventListener("submit", kontrola);
-
-// var email = document.querySelector("[id=email]");
 var email = document.querySelector("#email");
+
+// check if email is correct
 email.addEventListener("blur", kontrola);

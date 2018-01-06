@@ -1,3 +1,11 @@
+.fail {
+    border: 2px solid rgb(255, 76, 76);
+}
+
+.succ {
+    border: 2px solid rgb(1, 154, 11)
+}
+
 /* whole form style */
 form {
     border: 3px solid #f1f1f1;
@@ -11,12 +19,13 @@ label {
 }
 
 /* styles for email and password fields */
-input[type=email], input[type=password] {
+input[type=email], input[type=password], input[type=text]  {
     width: 100%;
     padding: 1em 1em;
-    margin: 1em 0;
+    margin: 0.3em 0 2em 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
+    border-width: 0 0 2px 0;
     box-sizing: border-box;
 }
 
@@ -33,8 +42,4 @@ button {
 
 .container {
     padding: 2em;
-}
-
-.failure {
-    background-color: rgb(255, 120, 120);
 }

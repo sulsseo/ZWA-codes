@@ -4,7 +4,7 @@ ob_start();
 
 function kontrola($user) {
     echo "kontrola: ".$user;
-    print_r(get_user($user));
+    // print_r(get_user($user));
     if ($user == "kuba@trmal") {
         return true;
     } else {
@@ -52,7 +52,7 @@ if (isset($_POST["user"])) {
         </div>
         <div class="container">
             <label>Email</label>
-            <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user)?>">
+            <input id="email" type="email" value="<?php echo htmlspecialchars($user)?>" name="user">
 
             <label>Heslo</label>
             <input id="password" type="password" name="pass">
