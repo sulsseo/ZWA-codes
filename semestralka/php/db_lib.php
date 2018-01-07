@@ -79,7 +79,6 @@ function get_user($email) {
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-
 }
 
 /**
