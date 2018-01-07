@@ -1,8 +1,4 @@
 <?php
-define ("DB_HOST", "127.0.0.1"); 
-define ("DB_NAME", "trmaljak"); 
-define ("DB_USER", "trmaljak"); 
-define ("DB_PASSWD", "webove aplikace");
 
 /**
  * Connect to defined database. 
@@ -10,13 +6,21 @@ define ("DB_PASSWD", "webove aplikace");
  * Return: open link to connection. NEED CLOSE!
  */
 function connect() {
-    if (!$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWD, DB_NAME)) {
-        echo "Error: Unable to connect to MySQL." . PHP_EOL;
-        echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-        echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-        exit;
+    $db_host = "localhost";
+    $db_user = "trmaljak";
+    $db_pass = "webove aplikace";
+    $db_name = "trmaljak";
+    
+    try {
+        $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        return $conn;
+    } catch(PDOException $e) {
+        // echo "Error: " . $e->getMessage();
+        error_log("db_lib.php(22): fail connection to DB", 1, '../error.log');
     }
-    return $link;
 }
 
 
@@ -27,82 +31,64 @@ function connect() {
  */
 function get_article($id) {
     $table = 'article';
-    $link = connect();
+    $conn = connect();
 
     // build query
-    $sql = "SELECT * FROM $table WHERE id_article=$id";
-    $result = $link->query($sql);
+    $query = $conn->prepare("SELECT * FROM $table WHERE id_article=$id");
+    $query->execute();
 
     // close connection
-    mysqli_close($link);
+    $conn = null;
 
-    $my_row = $result->fetch_assoc();
-    echo $my_row["title"];
-    echo $my_row["perex"];
-    echo $my_row["body"]; 
+    $response = $query->fetch(PDO::FETCH_NAMED);
+    return $response;    
 }
+
+/**
+ * Test print function
+ */
+function print_article($id) {
+    $article = get_article($id);
+    
+    echo $article["title"];
+    echo $article["perex"];
+    echo $article["body"]; 
+}
+
 
 /**
  * Get user row from database
  */
-function get_user($username) {
-
+function get_user($email) {
     $table = 'user';
-    $link = connect();
 
-    // build query
-    $sql = "SELECT * FROM $table WHERE username=$username";
-    // $sql = "SELECT * FROM $table WHERE id_user=123";
-    $result = $link->query($sql);
+    try {
+        $conn = connect();
 
-    mysqli_close($link);
+        // prepare query and exec
+        $query = $conn->prepare("SELECT * FROM $table WHERE email='$email'");
+        $query->execute();
 
-    // print_r($result->fetch_assoc());
-    
-    if (!$result) {
-        return null;
-    } else {
-        return $result->fetch_assoc();
+        $conn = null;
+
+        // parse response
+        $response = $query->fetch(PDO::FETCH_NAMED);
+        
+        return $response;
+
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
+
 }
 
 /**
- * Add new user to db after registration
+ * Add new user to db after registration - PDO connection
  * 
- * user table[id, username(email), pass, registration time]
+ * user table[id, name, email, pass, registration time]
  */
-function add_user($name, $username, $plain_password) {
-    $table = 'user';
-    $link = connect();
-
-    // unique id for new user
-    $id = uniqid();
-    
-    // get current time 
-    // $reg = date("F Y h:i:s A");
-    $reg = time();
-    
-    // hash password
-    $pass = password_hash($plain_password, PASSWORD_BCRYPT);
-
-    $sql = "INSERT INTO user (id_user, name, username, password, registration) VALUES ('$id', '$name', '$username', '$pass', '$reg')";
-
-    // send builded query
-    if(mysqli_query($link, $sql)){
-        echo "Records inserted successfully.";
-    } else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    } 
-}
-
-/**
- * PDO connection. NOT WORK NOW
- */
-function add_user2($sername, $plain_password) {
-    $conn = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, null);
-    
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+function add_user($name, $email, $plain_password) {
+    $conn = connect();
 
     // unique id for new user
     $id = uniqid();
@@ -111,14 +97,13 @@ function add_user2($sername, $plain_password) {
     $reg = date("F Y h:i:s A");
     
     // hash password
-    $pass = password_hash($plain_password.$username, PASSWORD_DEFAULT);
+    $pass = password_hash($plain_password.$email, PASSWORD_DEFAULT);
 
     try {
         // proceed transaction
         $conn->beginTransaction();
         
-        $conn->exec("INSERT INTO user (id_user, username, password, registration) 
-                VALUES ($id, $username, $pass, $reg)");
+        $conn->exec("INSERT INTO user (id_user, name, email, password, registration) VALUES ('$id', '$name', '$email', '$pass', '$reg')");
 
         // commit the transaction
         $conn->commit();
