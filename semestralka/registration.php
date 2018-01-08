@@ -37,50 +37,63 @@ if (count(array_filter($_POST)) === 4) {
 ?>
     <!DOCTYPE html>
     <html lang="cs">
-
+    
     <head>
-        <meta charset="UTF-8">
-        <title>Registration page</title>
-
-        <link href="css/main.css" rel="stylesheet" type="text/css">
-        <link href="css/forms.css" rel="stylesheet" type="text/css">
+    
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>Vybezek.eu - zpravodajsky web</title>
+    
+        <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
+        <link href="css/form.css" rel="stylesheet">
+        <link href="css/zwa.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="css/scrolling-nav.css" rel="stylesheet">
+    
     </head>
 
     <body>
-        <nav>
-            <ul class="horizontal-nav">
-                <li class="nav-item">
-                    <a href="index.html">Home</a>
-                </li>
-            </ul>
-        </nav>
-        <form class="registration-form" method="POST" action="registration.php">
-            <h2>Novy uzivatel</h2>
-            <div class="container">
-                <img src="images/avatar.png" alt="avatar picture">
-            </div>
-            <div class="container">
-                <?php echo htmlspecialchars($info)?>
-                <label>Jmeno</label>
-                <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($firstname)?>">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="index.html">Výběžek.eu</a>
+        </div>
+    </nav>
 
-                <label>Email</label>
-                <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user)?>">
+    <form class="custom-form" method="POST" action="registration.php">
+        <h1>Registrace</h1>
+        <div class="col-lg-8 mx-auto">
+            <img src="images/avatar.png" alt="avatar picture">
+        </div>
+        <div class="container">
+            <?php echo htmlspecialchars($info)?>
+        </div>
+        <div class="col-lg-8 mx-auto">
+            <label>Jmeno</label>
+            <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($firstname)?>" require>
 
-                <label>Heslo</label>
-                <input id="password" type="password" name="pass">
+            <label>Email</label>
+            <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user)?>" require>
 
-                <label>Potvrdit heslo</label>
-                <input id="password2" type="password" name="pass2">
+            <label>Heslo</label>
+            <input id="password" type="password" name="pass" require>
 
-                <button type="submit">Registrovat</button>
-            </div>
-        </form>
+            <label>Potvrdit heslo</label>
+            <input id="password2" type="password" name="pass2" require>
+
+            <button class="btn btn-primary btn-block" type="submit">Registrovat</button>
+            <!-- <a href="registration.php" class="btn btn-info btn-block">Registrovat</a> -->
+        </div>
+    </form>
 
 
-        <!-- scripts section -->
-        <script src="js/registrationForm.js"></script>
-        <!-- <script src="js/tempAlert.js"></script> -->
+    <!-- scripts section -->
+    <script src="js/registrationForm.js"></script>
 
     </body>
 

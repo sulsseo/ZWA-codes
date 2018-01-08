@@ -11,11 +11,11 @@ function email_check(event) {
         event.preventDefault();
         // email.style.backgroundColor="red";
 
-        email.classList.remove("succ");
-        email.classList.add("fail");
+        email.classList.remove("bg-success");
+        email.classList.add("bg-danger");
     } else {
-        email.classList.remove("fail");
-        email.classList.add("succ");
+        email.classList.remove("bg-danger");
+        email.classList.add("bg-success");
     }
 }
 

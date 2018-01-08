@@ -7,10 +7,10 @@
 }
 
 /* whole form style */
-form {
-    border: 3px solid #f1f1f1;
+.custom-form {
+    /*border: 3px solid #f1f1f1;*/
     text-align: center;
-    margin: 2em 2em 2em 2em;
+    margin: 5em 2em 2em 2em;
     padding: 2em 2em 2em 2em;
 }
 
@@ -29,17 +29,11 @@ input[type=email], input[type=password], input[type=text]  {
     box-sizing: border-box;
 }
 
-/* button style */
-button {
-    background-color: dodgerblue;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
+.login-container {
+    padding: 20px;
+    margin: 0 100px 0 100px;
 }
 
-.container {
-    padding: 2em;
+.login-container img {
+    width: 40%;
 }
