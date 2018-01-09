@@ -1,23 +1,24 @@
 <?php
 
 /**
- * Connect to defined database. 
- * 
+ * Connect to defined database.
+ *
  * Return: open link to connection. NEED CLOSE!
  */
-function connect() {
+function connect()
+{
     $db_host = "localhost";
     $db_user = "trmaljak";
     $db_pass = "webove aplikace";
     $db_name = "trmaljak";
-    
+
     try {
         $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
 
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
+
         return $conn;
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         // echo "Error: " . $e->getMessage();
         error_log("db_lib.php(22): fail connection to DB", 1, '../error.log');
     }
@@ -25,41 +26,49 @@ function connect() {
 
 
 /**
- * Get article from db by id. 
- * 
+ * Get article from db by id.
+ *
  * Return: html of article [title, perex, body]
  */
-function get_article($id) {
+function get_article($id)
+{
     $table = 'article';
     $conn = connect();
 
-    // build query
-    $query = $conn->prepare("SELECT * FROM $table WHERE id_article=$id");
-    $query->execute();
+    try {
+        // build query
+        $query = $conn->prepare("SELECT * FROM $table WHERE id_article=$id");
+        $query->execute();
 
-    // close connection
-    $conn = null;
+        // close connection
+        $conn = null;
 
-    $response = $query->fetch(PDO::FETCH_NAMED);
-    return $response;    
+        $response = $query->fetch(PDO::FETCH_NAMED);
+        return $response;
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
 
 /**
  * Test print function
  */
-function print_article($id) {
+function print_article($id)
+{
     $article = get_article($id);
-    
+
     echo $article["title"];
     echo $article["perex"];
-    echo $article["body"]; 
+    echo $article["body"];
 }
 
 
 /**
  * Get user row from database
  */
-function get_user($email) {
+function get_user($email)
+{
     $table = 'user';
 
     try {
@@ -73,20 +82,21 @@ function get_user($email) {
 
         // parse response
         $response = $query->fetch(PDO::FETCH_NAMED);
-        
+
         return $response;
 
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 }
 
 /**
  * Add new user to db after registration - PDO connection
- * 
+ *
  * user table[id, name, email, pass, registration time]
  */
-function add_user($name, $email, $plain_password) {
+function add_user($name, $email, $plain_password)
+{
     $conn = connect();
 
     // unique id for new user
@@ -94,28 +104,51 @@ function add_user($name, $email, $plain_password) {
 
     // get current time 
     $reg = date("F Y h:i:s A");
-    
+
     // hash password
-    $pass = password_hash($plain_password.$email, PASSWORD_DEFAULT);
+    $pass = password_hash($plain_password . $email, PASSWORD_DEFAULT);
 
     try {
         // proceed transaction
         $conn->beginTransaction();
-        
+
         $conn->exec("INSERT INTO user (id_user, name, email, password, registration) VALUES ('$id', '$name', '$email', '$pass', '$reg')");
 
         // commit the transaction
         $conn->commit();
 
         echo "New records created successfully";
-    
-    } catch(PDOException $e) {
+
+    } catch (PDOException $e) {
         // roll back the transaction if something failed
         $conn->rollback();
         echo "Error: " . $e->getMessage();
     }
 
     $conn = null;
+}
+
+/**
+ * Return number of article records
+ */
+function get_article_records()
+{
+    $conn = connect();
+
+    try {
+        $query = $conn->prepare("SELECT MAX(id_article) FROM article");
+        $query->execute();
+
+        $conn = null;
+
+        // parse response
+        $response = $query->fetch(PDO::FETCH_NAMED);
+
+        return $response['MAX(id_article)'];
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
 
 ?>

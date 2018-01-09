@@ -1,3 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: kuba
+ * Date: 08/01/2018
+ * Time: 22:47
+ */
+
+require('php/article_lib.php');
+//require('php/db_lib.php');
+
+$records = get_article_records();
+
+if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
+    $id_article = $_GET['id'];
+    $prev = $id_article-1;
+    $next = $id_article+1;
+} elseif($_GET['id'] == $records){
+    $id_article = $_GET['id'];
+    $prev = $records-1;
+    $next = 1;
+} else {
+    $id_article = 1;
+    $prev = $records;
+    $next = 2;
+}
+?>
 <!DOCTYPE html>
 <html lang="cs">
 
@@ -13,6 +40,7 @@
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
     <link href="css/zwa.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +62,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    <a class="nav-link js-scroll-trigger" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>
@@ -51,63 +79,44 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="example.php">Example</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="article.php">Article</a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<header class="bg-primary text-white">
-    <div class="container text-center">
-        <h1>Vítejte!</h1>
-        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
+<header class="bg-primary text-white bg-post">
+    <div class="container bg-primary text-left">
+        <h1><?php echo get_title($id_article);?></h1>
+<!--        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>-->
     </div>
 </header>
 
-<section id="about">
+<section class="padding" id="article">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <h2>About this page</h2>
-                <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled
-                    so you can use it as a boilerplate or starting point for you own landing page designs! This template
-                    features:</p>
-                <ul>
-                    <li>Clickable nav links that smooth scroll to page sections</li>
-                    <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-                    <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the
-                        navbar
-                    </li>
-                    <li>Minimal custom CSS so you are free to explore your own unique design options</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="services" class="bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>Services we offer</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore,
-                    expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda
-                    laborum vel, labore ut velit dignissimos.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <h2>Contact us</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem
-                    dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa
-                    exercitationem, in, quo totam.</p>
+<!--                <img src="images/title.jpg" class="img-responsive img-fluid p-3">-->
+                <div class="pu-4">
+                    <p class="pd-3">
+<!--                    <h1>--><?php //echo get_title($id_article); ?><!--<br></h1>-->
+                    </p>
+                    <p class="lead h3 pb-3 pt-3">
+                        <?php echo get_perex($id_article); ?>
+                    </p>
+                    <p>
+                        <?php echo get_body2($id_article); ?>
+                    </p>
+                </div>
+                <div class="container p-3">
+                    <div class="row">
+                        <div class="col-sm">
+                            <a href="<?php echo 'article.php?id='.$prev;?>" class="btn btn-primary btn-lg" role="button">Předchozí</a>
+                        </div>
+                        <div class="col-sm text-right">
+                            <a href="<?php echo 'article.php?id='.$next;?>" class="btn btn-primary btn-lg" role="button">Následující</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -134,3 +143,4 @@
 </body>
 
 </html>
+

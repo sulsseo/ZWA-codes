@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vybezek.eu - zpravodajsky web</title>
+    <title>Vybezek.eu - sport</title>
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    <a class="nav-link js-scroll-trigger" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>
@@ -62,6 +62,21 @@
 
 <?php echo get_jumbotron(2); ?>
 <?php echo get_jumbotron(3); ?>
+
+<section id="jumbotron">
+    <div class="container jumbotron bg-light">
+        <picture>
+            <source srcset="images/title.jpg" type="image/jpg" />
+            <img src="images/title.jpg" class="img-fluid" alt="titulni obrazek" />
+        </picture>
+        <h4 class="display-4">Titulek</h4>
+        <p class="lead">odstavec</p>
+        <hr class="my-4">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Číst</a>
+        </p>
+    </div>
+</section>
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">
