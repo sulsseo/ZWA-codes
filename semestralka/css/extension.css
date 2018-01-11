@@ -1,3 +1,16 @@
+.fail {
+    border: 2px solid rgb(255, 76, 76);
+}
+
+.succ {
+    border: 2px solid rgb(1, 154, 11)
+}
+
+.bg-index {
+    background: url("../images/home-bg.jpg") no-repeat center center;
+    height: 500px;
+}
+
 .bg-image {
     background: url('../images/title.jpg') no-repeat center center;
 }
@@ -16,10 +29,8 @@ section .padding {
     padding: 10px 10px;
 }
 
-.op-5 {
-    opacity: 0.5;
-}
+.img-icon {
+    display: block;
 
-.op {
-    opacity: 1;
+    max-width: 40%;
 }

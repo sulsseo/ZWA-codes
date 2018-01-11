@@ -13,7 +13,7 @@ ob_start();
  *          false - we have record, select new one
  */
 function check($user) {
-    if (is_array(get_user($user))) {
+    if (is_array(get_user_by_mail($user))) {
         return false;
     } else {
         return true;
@@ -49,7 +49,7 @@ if (count(array_filter($_POST)) === 4) {
     
         <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
         <link href="css/form.css" rel="stylesheet">
-        <link href="css/zwa.css" rel="stylesheet">
+        <link href="css/extension.css" rel="stylesheet">
         <!-- Bootstrap core CSS -->
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     
@@ -61,7 +61,7 @@ if (count(array_filter($_POST)) === 4) {
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="index.html">Výběžek.eu</a>
+            <a class="navbar-brand js-scroll-trigger" href="index.php">Výběžek.eu</a>
         </div>
     </nav>
 

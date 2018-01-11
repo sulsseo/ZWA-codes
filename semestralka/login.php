@@ -1,53 +1,96 @@
 <?php
+/**
+ * status 1 - aktivni session
+ * status 2 -
+ */
 require("php/db_lib.php");
 ob_start();
+session_start();
 
 $user = "";
-$info="";
+$info = "";
 
-if (isset($_GET["m"]) && $_GET["m"]==1) {
+if (isset($_GET["m"]) && $_GET["m"] == 1) {
     $info = "Registrace proběhla úspěšně";
 }
 
-function check($email, $password) {
-    $user_record = get_user($email);
-    // print_r($user_record);
 
-    if (is_array($user_record)) {
-        echo "1";
-        if (isset($user_record["email"]) && $user_record["email"] == $email) {
-            echo "2";
-            if (password_verify($password.$email, $user_record["password"])) {
-                echo "3";
-                return true;
-            } else return false;
-        } else return false;
-    } else {
-        false;
-    }
-    
-}
+if (!isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
+    // have active session for user
+    $user_from_session = get_user_by_mail($_SESSION[$_COOKIE['SID']]);
+    $status = 1;
 
-// predvyplnovani formulare pokud byl uz nekdy vyplneny
-// v action vola sebe sama
+} else if (count(array_filter($_POST)) === 2) {
+    // no session for this user
 
-// $errorJmeno = ""; // datove promenne
-if (count(array_filter($_POST)) === 2) {
     $email = $_POST["email"];
     $password = $_POST["pass"];
 
-    if (check($email, $password)) {
-    //     // ulozeni do DB
-    //     // metodou get se presmeruje na jinou stranku - viz PRG
-        // header("HTTP/1.1 303 See Other");
+    if (check_user($email, $password)) {
+        $sid = session_id();
+        setcookie('SID', $sid, 0); // TODO expiration
+
+        $_SESSION[$sid]['mail'] = $email;
+        $_SESSION[$sid]['settings'] = array();
+
         header("Location: http://wa.toad.cz/~trmaljak");
         die();
     } else {
-        if (isset($_GET["m"]) && $_GET["m"]==2) {
-            $info = "Přihlášení bylo neúspěšné, zkuste to znovu";
-        }
+        $status = 2;
     }
+} else {
+    echo 'nikdo tu neni, zalogovat!';
+    $status = 3;
 }
+
+switch ($status) {
+    case 1:
+        echo 'nekdo tu uz je lognutej';
+        $body = '';
+        break;
+    case 2:
+        echo 'case 2';
+        $body =
+            '<form class="custom-form" method="POST" action="login.php?m=2">
+            <h1>Přihlášení</h1>
+            <div class="col-lg-8 mx-auto">
+                <img src="images/avatar.png" alt="avatar picture">
+            </div>
+            <div class="container">Přihlášení bylo neúspěšné, zkuste to znovu</div>
+            <div class="col-lg-8 mx-auto">
+                <label>Email</label>
+                <input id="email" type="email" value="" name="email" require>
+        
+                <label>Heslo</label>
+                <input id="password" type="password" name="pass" require>
+        
+                <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
+                <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>
+            </div>
+        </form>';
+        break;
+    case 3:
+        echo 'echo 3';
+//        $body =
+//            '<form class="custom-form" method="POST" action="login.php?m=2">
+//            <h1>Přihlášení</h1>
+//            <div class="col-lg-8 mx-auto">
+//                <img src="images/avatar.png" alt="avatar picture">
+//            </div>
+//            <div class="col-lg-8 mx-auto">
+//                <label>Email</label>
+//                <input id="email" type="email" value="" name="email" require>
+//
+//                <label>Heslo</label>
+//                <input id="password" type="password" name="pass" require>
+//
+//                <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
+//                <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>
+//            </div>
+//        </form>';
+        break;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -63,7 +106,7 @@ if (count(array_filter($_POST)) === 2) {
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/zwa.css" rel="stylesheet">
+    <link href="css/extension.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -77,31 +120,12 @@ if (count(array_filter($_POST)) === 2) {
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="index.html">Výběžek.eu</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php">Výběžek.eu</a>
     </div>
 </nav>
 
-<!-- <section id="login"> -->
-    <form class="custom-form" method="POST" action="login.php?m=2">
-        <h1>Přihlášení</h1>
-        <div class="col-lg-8 mx-auto">
-        <img src="images/avatar.png" alt="avatar picture">
-        </div>
-        <div class="container">
-            <?php echo htmlspecialchars($info)?>
-        </div>
-        <div class="col-lg-8 mx-auto">
-            <label>Email</label>
-            <input id="email" type="email" value="" name="email" require>
-
-            <label>Heslo</label>
-            <input id="password" type="password" name="pass" require>
-
-            <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
-            <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>
-        </div>
-    </form>
-<!-- </section> -->
+<?php print_r($_SESSION);?>
+<?php echo $body; ?>
 
 <!-- scripts section -->
 <script src="js/loginForm.js"></script>

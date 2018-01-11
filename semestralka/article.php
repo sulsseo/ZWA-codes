@@ -39,7 +39,7 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/zwa.css" rel="stylesheet">
+    <link href="css/extension.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -62,7 +62,7 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="index.html">Home</a>
+                    <a class="nav-link js-scroll-trigger" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>

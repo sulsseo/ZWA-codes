@@ -67,7 +67,7 @@ function print_article($id)
 /**
  * Get user row from database
  */
-function get_user($email)
+function get_user_by_mail($email)
 {
     $table = 'user';
 
@@ -97,27 +97,24 @@ function get_user($email)
  */
 function add_user($name, $email, $plain_password)
 {
+
     $conn = connect();
 
-    // unique id for new user
     $id = uniqid();
 
-    // get current time 
     $reg = date("F Y h:i:s A");
 
-    // hash password
     $pass = password_hash($plain_password . $email, PASSWORD_DEFAULT);
 
     try {
         // proceed transaction
         $conn->beginTransaction();
 
-        $conn->exec("INSERT INTO user (id_user, name, email, password, registration) VALUES ('$id', '$name', '$email', '$pass', '$reg')");
+        $query = $conn->prepare('INSERT INTO user (id_user, name, email, password, registration) VALUES (?, ?, ?, ?, ?)');
+        $query->execute(array($id, $name, $email, $pass, $reg));
 
-        // commit the transaction
-        $conn->commit();
-
-        echo "New records created successfully";
+//        // commit the transaction
+//        $conn->commit();
 
     } catch (PDOException $e) {
         // roll back the transaction if something failed
@@ -126,6 +123,29 @@ function add_user($name, $email, $plain_password)
     }
 
     $conn = null;
+}
+
+/**
+ * TODO
+ * @param $email
+ * @param $password
+ * @return bool
+ */
+function check_user($email, $password) {
+    $user_record = get_user_by_mail($email);
+
+    if (is_array($user_record)) {
+        echo "1";
+        if (isset($user_record["email"]) && $user_record["email"] == $email) {
+            echo "2";
+            if (password_verify($password.$email, $user_record["password"])) {
+                echo "3";
+                return true;
+            } else return false;
+        } else return false;
+    } else {
+        false;
+    }
 }
 
 /**
@@ -150,5 +170,3 @@ function get_article_records()
         echo "Error: " . $e->getMessage();
     }
 }
-
-?>
