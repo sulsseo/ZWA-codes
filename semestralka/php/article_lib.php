@@ -9,7 +9,7 @@ require("db_lib.php");
 function get_jumbotron($id_article)
 {
     $article = get_article($id_article);
-    $result = '<section id="jumbotron">
+    $result = '<section id="'.$id_article.'">
                     <div class="container jumbotron bg-light">
                         <h4 class="display-4">'.$article["title"].'</h4>
                         <p class="lead">'.$article["perex"].'</p>

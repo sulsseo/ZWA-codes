@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 /**
  *  TODO
@@ -20,7 +21,6 @@ $footer = '<footer class="py-3 bg-dark">
 
 
 ?>
-<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -64,6 +64,9 @@ $footer = '<footer class="py-3 bg-dark">
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="article.php">Article</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="logout.php">log out</a>
                 </li>
             </ul>
         </div>

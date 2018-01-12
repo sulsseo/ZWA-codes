@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 /**
  * Created by PhpStorm.
@@ -5,6 +6,9 @@
  * Date: 08/01/2018
  * Time: 22:47
  */
+
+session_start();
+ob_start();
 
 require('php/article_lib.php');
 //require('php/db_lib.php');
@@ -25,7 +29,6 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
     $next = 2;
 }
 ?>
-<!DOCTYPE html>
 <html lang="cs">
 
 <head>

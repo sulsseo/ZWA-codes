@@ -1,23 +1,26 @@
+<!DOCTYPE html>
 <?php
 /**
  * status 1 - aktivni session
  * status 2 -
  */
-require("php/db_lib.php");
-ob_start();
 session_start();
+ob_start();
 
-$user = "";
+$email = "";
 $info = "";
+$body = "";
 
 if (isset($_GET["m"]) && $_GET["m"] == 1) {
     $info = "Registrace proběhla úspěšně";
 }
 
+print_r($_SESSION);
 
-if (!isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
+require("php/db_lib.php");
+if (isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
     // have active session for user
-    $user_from_session = get_user_by_mail($_SESSION[$_COOKIE['SID']]);
+    $user_from_session = get_user_by_mail($_SESSION[$_COOKIE['SID']]['mail']);
     $status = 1;
 
 } else if (count(array_filter($_POST)) === 2) {
@@ -45,8 +48,8 @@ if (!isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
 
 switch ($status) {
     case 1:
-        echo 'nekdo tu uz je lognutej';
-        $body = '';
+        echo $email . '\n';
+        print_r($user_from_session);
         break;
     case 2:
         echo 'case 2';
@@ -71,32 +74,30 @@ switch ($status) {
         break;
     case 3:
         echo 'echo 3';
-//        $body =
-//            '<form class="custom-form" method="POST" action="login.php?m=2">
-//            <h1>Přihlášení</h1>
-//            <div class="col-lg-8 mx-auto">
-//                <img src="images/avatar.png" alt="avatar picture">
-//            </div>
-//            <div class="col-lg-8 mx-auto">
-//                <label>Email</label>
-//                <input id="email" type="email" value="" name="email" require>
-//
-//                <label>Heslo</label>
-//                <input id="password" type="password" name="pass" require>
-//
-//                <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
-//                <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>
-//            </div>
-//        </form>';
+        $body =
+            '<form class="custom-form" method="POST" action="login.php?m=2">
+            <h1>Přihlášení</h1>
+            <div class="col-lg-8 mx-auto">
+                <img src="images/avatar.png" alt="avatar picture">
+            </div>
+            <div class="col-lg-8 mx-auto">
+                <label>Email</label>
+                <input id="email" type="email" value="'.htmlspecialchars($email, ENT_QUOTES).'" name="email" required>
+
+                <label>Heslo</label>
+                <input id="password" type="password" name="pass" required>
+
+                <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
+                <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>
+            </div>
+        </form>';
         break;
 }
 
 ?>
-<!DOCTYPE html>
 <html lang="cs">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -112,7 +113,6 @@ switch ($status) {
 
     <!-- Custom styles for this template -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -124,7 +124,6 @@ switch ($status) {
     </div>
 </nav>
 
-<?php print_r($_SESSION);?>
 <?php echo $body; ?>
 
 <!-- scripts section -->

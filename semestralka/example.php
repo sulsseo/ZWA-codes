@@ -1,5 +1,10 @@
-<?php require("php/article_lib.php"); ?>
 <!DOCTYPE html>
+<?php
+session_start();
+ob_start();
+
+require("php/article_lib.php");
+?>
 <html lang="cs">
 <head>
 
