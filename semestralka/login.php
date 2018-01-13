@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 /**
  * status 1 - aktivni session
@@ -31,10 +30,10 @@ if (isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
 
     if (check_user($email, $password)) {
         $sid = session_id();
-        setcookie('SID', $sid, 0); // TODO expiration
+        setcookie('SID', $sid, 0);
 
         $_SESSION[$sid]['mail'] = $email;
-        $_SESSION[$sid]['settings'] = array();
+        $_SESSION[$sid]['color'] = 2;
 
         header("Location: http://wa.toad.cz/~trmaljak");
         die();
@@ -42,17 +41,13 @@ if (isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
         $status = 2;
     }
 } else {
-    echo 'nikdo tu neni, zalogovat!';
     $status = 3;
 }
 
 switch ($status) {
     case 1:
-        echo $email . '\n';
-        print_r($user_from_session);
         break;
     case 2:
-        echo 'case 2';
         $body =
             '<form class="custom-form" method="POST" action="login.php?m=2">
             <h1>Přihlášení</h1>
@@ -73,7 +68,6 @@ switch ($status) {
         </form>';
         break;
     case 3:
-        echo 'echo 3';
         $body =
             '<form class="custom-form" method="POST" action="login.php?m=2">
             <h1>Přihlášení</h1>
@@ -95,6 +89,7 @@ switch ($status) {
 }
 
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -107,12 +102,12 @@ switch ($status) {
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/extension.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
 </head>
 
 <body id="page-top">

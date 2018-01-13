@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 require("php/db_lib.php");
 $firstname = "";
@@ -37,6 +36,7 @@ if (count(array_filter($_POST)) === 4) {
     }
 }
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -50,12 +50,12 @@ if (count(array_filter($_POST)) === 4) {
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/extension.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
 
 </head>
 

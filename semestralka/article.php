@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 /**
  * Created by PhpStorm.
@@ -7,11 +6,19 @@
  * Time: 22:47
  */
 
-session_start();
-ob_start();
+//session_start();
+//ob_start();
 
-require('php/article_lib.php');
-//require('php/db_lib.php');
+require_once('php/article_lib.php');
+require_once('php/elements_lib.php');
+
+$id_color = 0;
+$login = false;
+
+if (check_login()) {
+    $id_color = $_SESSION[$_COOKIE['SID']]['color'];
+    $login = true;
+}
 
 $records = get_article_records();
 
@@ -28,7 +35,13 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
     $prev = $records;
     $next = 2;
 }
+
+$navigaton = get_navigation($id_color, $login);
+
+$footer = get_footer($id_color);
+
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -42,50 +55,20 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/extension.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+<!--     Custom styles for this template -->
+<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
 
 </head>
 
 <body id="page-top">
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Výběžek.eu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="registration.php">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="example.php">Example</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php echo $navigaton; ?>
 
 <header class="bg-primary text-white bg-post">
     <div class="container bg-primary text-left">
@@ -126,12 +109,7 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
 </section>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-    </div>
-    <!-- /.container -->
-</footer>
+<?php echo $footer; ?>
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>

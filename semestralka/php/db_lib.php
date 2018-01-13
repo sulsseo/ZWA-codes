@@ -127,6 +127,7 @@ function add_user($name, $email, $plain_password)
 
 /**
  * TODO
+ *
  * @param $email
  * @param $password
  * @return bool
@@ -169,4 +170,15 @@ function get_article_records()
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
+}
+
+/**
+ *
+ */
+function check_login() {
+    session_start();
+
+    if(isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
+        return true;
+    } else return false;
 }

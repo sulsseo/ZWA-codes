@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <?php
 session_start();
 ob_start();
 
 require("php/article_lib.php");
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
 
@@ -17,12 +17,12 @@ require("php/article_lib.php");
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
-    <link href="css/extension.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
 
 </head>
 

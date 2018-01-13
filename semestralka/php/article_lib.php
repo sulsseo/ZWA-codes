@@ -1,26 +1,5 @@
 <?php
-require("db_lib.php");
-
-/**
- * Generate jumbotron for given article index
- *
- * article structure [id_article, title, perex, body]
- */
-function get_jumbotron($id_article)
-{
-    $article = get_article($id_article);
-    $result = '<section id="'.$id_article.'">
-                    <div class="container jumbotron bg-light">
-                        <h4 class="display-4">'.$article["title"].'</h4>
-                        <p class="lead">'.$article["perex"].'</p>
-                        <hr class="my-4">
-                        <p class="lead">
-                            <a class="btn btn-primary btn-lg" href="article.php?id='.$id_article.'" role="button">Číst</a>
-                        </p>
-                    </div>
-                </section>';
-    return $result;
-}
+require_once("db_lib.php");
 
 /**
  * Get title of article
@@ -67,6 +46,3 @@ function get_body2($id_article)
     $body = $article["body"];
     return str_replace('<br>', '<br><br>', $body);
 }
-
-
-?>

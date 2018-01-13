@@ -1,26 +1,44 @@
-<!DOCTYPE html>
 <?php
 /**
  *  TODO
  */
 
-session_start();
+ob_start();
+
+require_once('php/db_lib.php');
+require_once('php/elements_lib.php');
+
+$id_color = 5;
+$login = false;
+
+if (check_login()) {
+    $id_color = $_SESSION[$_COOKIE['SID']]['color'];
+    $login = true;
+}
+
+$a = 3;
+$p = 1;
+$max_a = get_article_records();
 
 
-// TODO check login
+if (!empty($_GET['a'])) {
+    $a = $_GET['a'];
+}
 
-require('php/article_lib.php');
+if (!empty($_GET['p'])) {
+    $p = $_GET['p'];
+}
 
+echo $p;
 
-$footer = '<footer class="py-3 bg-dark">
-                <div class="container text-center text-white">
-                    <p>Vytvořeno v rámci předmětu ZWA</p>
-                    <p>Autor:  Jakub Trmal - trmaljak@fel.cvut.cz</p>
-                </div>
-            </footer>';
+$navigation = get_navigation($id_color, $login);
 
+$footer = get_footer($id_color);
+
+$pagination = get_pagination($a, $p, $max_a, $id_color);
 
 ?>
+<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -29,49 +47,19 @@ $footer = '<footer class="py-3 bg-dark">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vybezek.eu - zpravodajsky web</title>
+    <title>Výběžek.eu - zpravodajství ze severu čech</title>
 
-    <link href="css/form.css" rel="stylesheet">
-    <link href="css/extension.css" rel="stylesheet">
+<!--    <link href="css/form.css" rel="stylesheet">-->
+    <link href="css/main.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Výběžek.eu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="registration.php">Registration</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="example.php">Example</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="article.php">Article</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="logout.php">log out</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php echo $navigation; ?>
 
 <header class="bg-primary text-dark bg-index">
     <div class="container text-center">
@@ -80,9 +68,18 @@ $footer = '<footer class="py-3 bg-dark">
     </div>
 </header>
 
-<?php print_r($_SESSION) ?>
-<?php echo get_jumbotron(2); ?>
-<?php echo get_jumbotron(3); ?>
+<?php
+for ($i = ($p-1)*$a+1; $i <= ($p-1)*$a+$a; ++$i) {
+    if ($i <= $max_a) {
+        echo get_jumbotron($i, $id_color);
+    }
+}
+?>
+
+<section id="pages">
+    <?php echo $pagination; ?>
+</section>
+
 
 <!-- Footer -->
 <?php echo $footer ?>
@@ -98,5 +95,4 @@ $footer = '<footer class="py-3 bg-dark">
 <script src="js/scrolling-nav.js"></script>
 
 </body>
-
 </html>

@@ -1,67 +1,61 @@
-body {
-    font-family: knowledge-reg, helvetica, sans-serif;
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-}
-
 header {
-    height: 10em;
-    background-color: darkgrey;
+    padding: 154px 0 100px;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    /*position: fixed;*/
-    /*top: 0;*/
-    width: 100%;
-    overflow: hidden;
-    background-color: dodgerblue;
+@media (min-width: 992px) {
+    header {
+        padding: 156px 0 100px;
+    }
 }
 
-li .nav-social {
-    float: right;
+.fail {
+    border: 2px solid rgb(255, 76, 76);
 }
 
-/* group of list */
-li {
-    float: left;
+.succ {
+    border: 2px solid rgb(1, 154, 11)
 }
 
-/* link in list element global style */
-li a {
-    color: #fff;
+.bg-index {
+    background: url("../images/home-bg.jpg") no-repeat center center;
+    height: 500px;
+}
+
+.bg-image {
+    background: url('../images/title.jpg') no-repeat center center;
+}
+
+.bg-post {
+    background: url('../images/post-bg.jpg') no-repeat center center;
+    height: 500px;
+    opacity: 0.7;
+}
+
+section .padding {
+    padding: 50px 0;
+}
+
+.image-padding {
+    padding: 10px 10px;
+}
+
+.img-icon {
     display: block;
-    padding: 8px 20px;
+
+    max-width: 40%;
+}
+
+.hiden {
+    display: none;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
     text-decoration: none;
 }
-
-/* list element after hover */
-li a:hover {
-    color: #fff;
-    background-color: #555;
-}
-
-.calendar-header {
-    /*font-size: 3em;*/
-    text-align: center;
-    width: 5em;
-    height: 5em;
-    color: black;
-    background-color: white;
-    float: right;
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    margin: 0.5em 0.5em 0.5em 0.5em;
-}
-
-.calendar-header .day {
-    font-size: 3em;
-}
-
-.calendar-header .month {
-    font-size: 1em;
-}
-
-
