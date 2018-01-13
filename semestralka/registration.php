@@ -46,17 +46,14 @@ if (count(array_filter($_POST)) === 4) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vybezek.eu - zpravodajsky web</title>
+    <title>Výběžek.eu - zpravodajství ze severu čech</title>
 
-    <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
+
     <link href="css/form.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
-
 </head>
 
 <body>
@@ -88,7 +85,6 @@ if (count(array_filter($_POST)) === 4) {
         <input id="password2" type="password" name="pass2" require>
 
         <button class="btn btn-primary btn-block" type="submit">Registrovat</button>
-        <!-- <a href="registration.php" class="btn btn-info btn-block">Registrovat</a> -->
     </div>
 </form>
 

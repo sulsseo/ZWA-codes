@@ -88,7 +88,8 @@ function get_navigation($id_color, $login) {
             3 => 'hiden',
             4 => '',
             5 => 'hiden',
-            6 => '');
+            6 => '',
+            7 => '');
     } else {
         $hide = array(
             1 => '',
@@ -96,7 +97,8 @@ function get_navigation($id_color, $login) {
             3 => '',
             4 => '',
             5 => 'hiden',
-            6 => 'hiden');
+            6 => 'hiden',
+            7 => 'hiden');
     }
 
     $navi = '<nav class="navbar navbar-expand-lg navbar-dark '.get_bgcolor_class($id_color).' fixed-top" id="mainNav">
@@ -124,6 +126,9 @@ function get_navigation($id_color, $login) {
                                     <a class="nav-link" href="article.php">Článek</a>
                                 </li>
                                 <li class="nav-item '.$hide[6].'">
+                                    <a class="nav-link" href="profile.php">Profil</a>
+                                </li>
+                                <li class="nav-item '.$hide[7].'">
                                     <a class="nav-link" href="logout.php">Odhlášení</a>
                                 </li>
                             </ul>

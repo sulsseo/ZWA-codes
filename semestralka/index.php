@@ -3,18 +3,21 @@
  *  TODO
  */
 
+
+
 ob_start();
 
 require_once('php/db_lib.php');
 require_once('php/elements_lib.php');
 
-$id_color = 5;
+$id_color = 6;
 $login = false;
 
 if (check_login()) {
     $id_color = $_SESSION[$_COOKIE['SID']]['color'];
     $login = true;
 }
+$bg_color = get_bgcolor_class($id_color);
 
 $a = 3;
 $p = 1;
@@ -29,7 +32,6 @@ if (!empty($_GET['p'])) {
     $p = $_GET['p'];
 }
 
-echo $p;
 
 $navigation = get_navigation($id_color, $login);
 
@@ -49,7 +51,6 @@ $pagination = get_pagination($a, $p, $max_a, $id_color);
 
     <title>Výběžek.eu - zpravodajství ze severu čech</title>
 
-<!--    <link href="css/form.css" rel="stylesheet">-->
     <link href="css/main.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
@@ -61,7 +62,7 @@ $pagination = get_pagination($a, $p, $max_a, $id_color);
 <!-- Navigation -->
 <?php echo $navigation; ?>
 
-<header class="bg-primary text-dark bg-index">
+<header class="text-dark bg-index">
     <div class="container text-center">
         <h1>Vítejte na zpravodajském webu!</h1>
         <p class="lead">Aktuálně je tento web pouze prázdná prezentace plná nevyužitého potenciálu do budoucna</p>

@@ -98,16 +98,13 @@ switch ($status) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vybezek.eu - zpravodajsky web</title>
+    <title>Výběžek.eu - zpravodajství ze severu čech</title>
 
-    <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
 </head>
 
 <body id="page-top">

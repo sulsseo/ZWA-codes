@@ -12,13 +12,16 @@
 require_once('php/article_lib.php');
 require_once('php/elements_lib.php');
 
-$id_color = 0;
+$id_color = 6;
 $login = false;
 
 if (check_login()) {
     $id_color = $_SESSION[$_COOKIE['SID']]['color'];
     $login = true;
 }
+
+$bg_color = get_bgcolor_class($id_color);
+$btn_color = get_btncolor_class($id_color);
 
 $records = get_article_records();
 
@@ -51,7 +54,7 @@ $footer = get_footer($id_color);
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vybezek.eu - zpravodajsky web</title>
+    <title>Výběžek.eu - zpravodajství ze severu čech</title>
 
     <!--<link href="css/forms.css" rel="stylesheet" type="text/css">-->
     <link href="css/form.css" rel="stylesheet">
@@ -59,10 +62,6 @@ $footer = get_footer($id_color);
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!--     Custom styles for this template -->
-<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
-
 </head>
 
 <body id="page-top">
@@ -70,10 +69,9 @@ $footer = get_footer($id_color);
 <!-- Navigation -->
 <?php echo $navigaton; ?>
 
-<header class="bg-primary text-white bg-post">
-    <div class="container bg-primary text-left">
+<header class="text-white bg-post">
+    <div class="container <?php echo $bg_color; ?> text-left">
         <h1><?php echo get_title($id_article);?></h1>
-<!--        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>-->
     </div>
 </header>
 
@@ -81,10 +79,8 @@ $footer = get_footer($id_color);
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-<!--                <img src="images/title.jpg" class="img-responsive img-fluid p-3">-->
                 <div class="pu-4">
                     <p class="pd-3">
-<!--                    <h1>--><?php //echo get_title($id_article); ?><!--<br></h1>-->
                     </p>
                     <p class="lead h3 pb-3 pt-3">
                         <?php echo get_perex($id_article); ?>
@@ -96,10 +92,10 @@ $footer = get_footer($id_color);
                 <div class="container p-3">
                     <div class="row">
                         <div class="col-sm">
-                            <a href="<?php echo 'article.php?id='.$prev;?>" class="btn btn-primary btn-lg" role="button">Předchozí</a>
+                            <a href="<?php echo 'article.php?id='.$prev;?>" class="btn <?php echo $btn_color; ?> btn-lg" role="button">Předchozí</a>
                         </div>
                         <div class="col-sm text-right">
-                            <a href="<?php echo 'article.php?id='.$next;?>" class="btn btn-primary btn-lg" role="button">Následující</a>
+                            <a href="<?php echo 'article.php?id='.$next;?>" class="btn <?php echo $btn_color; ?> btn-lg" role="button">Následující</a>
                         </div>
                     </div>
                 </div>

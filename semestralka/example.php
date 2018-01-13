@@ -1,8 +1,23 @@
 <?php
-session_start();
+
 ob_start();
 
-require("php/article_lib.php");
+require_once('php/db_lib.php');
+
+$id_color = 6;
+$login = false;
+
+if (check_login()) {
+    $id_color = $_SESSION[$_COOKIE['SID']]['color'];
+    $login = true;
+}
+
+require_once("php/elements_lib.php");
+
+$navigation = get_navigation($id_color, $login);
+
+$footer = get_footer($id_color);
+
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -20,53 +35,22 @@ require("php/article_lib.php");
     <link href="css/main.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-<!--    <link href="css/scrolling-nav.css" rel="stylesheet">-->
-
 </head>
 
 <body id="page-top">
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Výběžek.eu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="registration.php">Registration</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php echo $navigation; ?>
 
 <header class="bg-primary text-white bg-image">
     <div class="container text-center">
-        <h1>Vítejte!</h1>
-        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
+        <h1>SPORT</h1>
+        <p class="lead">Vzor rubriky o sportu.</p>
     </div>
 </header>
 
-<?php echo get_jumbotron(2); ?>
-<?php echo get_jumbotron(3); ?>
+<?php echo get_jumbotron(2, $id_color); ?>
+<?php echo get_jumbotron(3, $id_color); ?>
 
 <section id="jumbotron">
     <div class="container jumbotron bg-light">
@@ -78,18 +62,13 @@ require("php/article_lib.php");
         <p class="lead">odstavec</p>
         <hr class="my-4">
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Číst</a>
+            <a class="btn <?php echo get_btncolor_class($id_color); ?> btn-lg" href="#" role="button">Číst</a>
         </p>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-    </div>
-    <!-- /.container -->
-</footer>
+<?php echo $footer; ?>
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
