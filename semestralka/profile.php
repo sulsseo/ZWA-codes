@@ -13,6 +13,11 @@ require_once('php/elements_lib.php');
 ob_start();
 session_start();
 
+if (empty($_COOKIE['SID']) || !isset($_SESSION[$_COOKIE['SID']])) {
+    header("Location: http://wa.toad.cz/~trmaljak");
+    die();
+}
+
 if (!empty($_GET['color'])) {
     $_SESSION[$_COOKIE['SID']]['color'] = $_GET['color'];
 }

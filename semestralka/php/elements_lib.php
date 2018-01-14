@@ -92,7 +92,8 @@ function get_navigation($id_color, $login) {
             5 => 'hiden',
             6 => '',
             7 => '',
-            8 => '');
+            8 => '',
+            9 => '');
     } else {
         $hide = array(
             1 => '',
@@ -102,7 +103,8 @@ function get_navigation($id_color, $login) {
             5 => 'hiden',
             6 => 'hiden',
             7 => 'hiden',
-            8 => '');
+            8 => '',
+            9 => '');
     }
 
     $navi = '<nav class="navbar navbar-expand-lg navbar-dark '.get_bgcolor_class($id_color).' fixed-top" id="mainNav">
@@ -137,6 +139,9 @@ function get_navigation($id_color, $login) {
                                 </li>
                                 <li class="nav-item '.$hide[8].'">
                                     <a class="nav-link" href="documentation.pdf">Dokumentace</a>
+                                </li>
+                                <li class="nav-item '.$hide[9].'">
+                                    <a class="nav-link" href="doxydoc/html/index.html">DoxyDoc</a>
                                 </li>
                             </ul>
                         </div>

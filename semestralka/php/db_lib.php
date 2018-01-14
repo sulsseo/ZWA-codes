@@ -33,6 +33,8 @@ function connect()
  * Get article from db by id.
  *
  * Return: html of article [title, perex, body]
+ * @param $id int article id in db
+ * @return mixed article data in array
  */
 function get_article($id)
 {
@@ -57,6 +59,8 @@ function get_article($id)
 
 /**
  * Test print function
+ *
+ * @param $id article id in db
  */
 function print_article($id)
 {
@@ -70,6 +74,9 @@ function print_article($id)
 
 /**
  * Get user row from database
+ *
+ * @param $email email in plain text to identify user in db
+ * @return mixed user data in array
  */
 function get_user_by_mail($email)
 {
@@ -98,6 +105,10 @@ function get_user_by_mail($email)
  * Add new user to db after registration - PDO connection
  *
  * user table[id, name, email, pass, registration time]
+ *
+ * @param $name user name
+ * @param $email user email
+ * @param $plain_password password in plain text from form
  */
 function add_user($name, $email, $plain_password)
 {

@@ -16,8 +16,6 @@ if (isset($_GET["m"]) && $_GET["m"] == 1) {
     $info = "Registrace proběhla úspěšně";
 }
 
-print_r($_SESSION);
-
 require("php/db_lib.php");
 if (isset($_COOKIE['SID']) && isset($_SESSION[$_COOKIE['SID']])) {
     // have active session for user

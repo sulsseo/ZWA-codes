@@ -68,16 +68,14 @@ $pagination = get_pagination($a, $p, $max_a, $id_color);
 </header>
 
 <?php
-for ($i = ($p-1)*$a+1; $i <= ($p-1)*$a+$a; ++$i) {
+for ($i = ($p - 1) * $a + 1; $i <= ($p - 1) * $a + $a; ++$i) {
     if ($i <= $max_a) {
         echo get_jumbotron($i, $id_color);
     }
 }
 ?>
 
-<section id="pages">
-    <?php echo $pagination; ?>
-</section>
+<?php echo $pagination; ?>
 
 
 <!-- Footer -->

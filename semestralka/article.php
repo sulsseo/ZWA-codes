@@ -1,13 +1,15 @@
 <?php
 /**
+ *
+ * Aticle page
+ *
  * Created by PhpStorm.
  * User: kuba
  * Date: 08/01/2018
  * Time: 22:47
  */
 
-//session_start();
-//ob_start();
+ob_start();
 
 require_once('php/article_lib.php');
 require_once('php/elements_lib.php');
@@ -29,7 +31,7 @@ if (isset($_GET['id']) && $_GET['id'] > 1 && $_GET['id'] < $records) {
     $id_article = $_GET['id'];
     $prev = $id_article-1;
     $next = $id_article+1;
-} elseif($_GET['id'] == $records){
+} elseif(isset($_GET['id']) && $_GET['id'] == $records){
     $id_article = $_GET['id'];
     $prev = $records-1;
     $next = 1;
@@ -75,7 +77,7 @@ $footer = get_footer($id_color);
     </div>
 </header>
 
-<section class="padding" id="article">
+<!--<section class="padding" id="article">-->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
@@ -102,7 +104,7 @@ $footer = get_footer($id_color);
             </div>
         </div>
     </div>
-</section>
+<!--</section>-->
 
 <!-- Footer -->
 <?php echo $footer; ?>
