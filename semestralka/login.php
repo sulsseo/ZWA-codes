@@ -1,8 +1,10 @@
 <?php
 /**
- * status 1 - aktivni session
- * status 2 -
+ * status 1 - active session
+ * status 2 - fail login
+ * status 3 - need registration
  */
+
 session_start();
 ob_start();
 

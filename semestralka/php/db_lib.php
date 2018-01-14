@@ -1,4 +1,8 @@
 <?php
+/**
+ * Database library class. Use for database handle.
+ */
+
 
 /**
  * Connect to defined database.
@@ -126,21 +130,18 @@ function add_user($name, $email, $plain_password)
 }
 
 /**
- * TODO
+ * Check if user is in database and everything is correct
  *
- * @param $email
- * @param $password
- * @return bool
+ * @param $email mail of user given in plain text
+ * @param $password password in plain text from form
+ * @return bool everything is correct
  */
 function check_user($email, $password) {
     $user_record = get_user_by_mail($email);
 
     if (is_array($user_record)) {
-        echo "1";
         if (isset($user_record["email"]) && $user_record["email"] == $email) {
-            echo "2";
             if (password_verify($password.$email, $user_record["password"])) {
-                echo "3";
                 return true;
             } else return false;
         } else return false;
@@ -173,7 +174,9 @@ function get_article_records()
 }
 
 /**
+ * Check if someone is logged in. If $_SESSION has some information
  *
+ * @return bool if test was positive, false otherwise
  */
 function check_login() {
     session_start();

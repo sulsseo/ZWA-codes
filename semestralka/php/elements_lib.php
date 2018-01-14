@@ -1,6 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Class generating html of dynamic elements on page
+ *
  * User: kuba
  * Date: 10/01/2018
  * Time: 22:08
@@ -9,10 +10,10 @@
 require_once('article_lib.php');
 
 /**
- * TODO
+ * Easy getter for background tag for bootstrap. Base on id_color.
  *
- * @param $id_color
- * @return string
+ * @param $id_color int between 1 and 6 including
+ * @return string of bootstrap tag
  */
 function get_bgcolor_class($id_color) {
     switch ($id_color) {
@@ -42,10 +43,10 @@ function get_bgcolor_class($id_color) {
 }
 
 /**
- * TODO
+ * Easy getter for button tag for bootstrap css style. Base on id_color.
  *
- * @param $id_color
- * @return string
+ * @param $id_color int between 1 and 6 including
+ * @return string of bootstrap btn tag
  */
 function get_btncolor_class($id_color) {
     switch ($id_color) {
@@ -75,10 +76,11 @@ function get_btncolor_class($id_color) {
 }
 
 /**
- * TODO version after login
+ * Generator of navigation in html.
  *
- * @param $id_color
- * @return string
+ * @param $id_color int between 1 and 6 including
+ * @param $login true/false if user is logged
+ * @return string complete html of navigation
  */
 function get_navigation($id_color, $login) {
     if ($login) {
@@ -142,7 +144,7 @@ function get_navigation($id_color, $login) {
  * Get footer specified with color
  *
  * @param $id_color - number of color from 1 to 6, dark grey by default
- * @return string - html of prespecified footer
+ * @return string - html of specified footer
  */
 function get_footer($id_color) {
     $footer = '<footer class="py-3 '.get_bgcolor_class($id_color).'">
@@ -157,7 +159,11 @@ function get_footer($id_color) {
 /**
  * Generate jumbotron for given article index
  *
- * article structure [id_article, title, perex, body]
+ * article structure [id_article, title, perex, body, author, category]
+ *
+ * @param $id_article id in db to get specify article
+ * @param $id_color int between 1 and 6 including
+ * @return string html of specified jumbotron - bootstrap object
  */
 function get_jumbotron($id_article, $id_color)
 {
@@ -175,6 +181,15 @@ function get_jumbotron($id_article, $id_color)
     return $result;
 }
 
+/**
+ * HTML generator of pagination on bottom of page
+ *
+ * @param $a number of articles on one page
+ * @param $p current page
+ * @param $max_a number of articles in database
+ * @param $id_color int between 1 and 6 including
+ * @return string generated html of pagination
+ */
 function get_pagination($a, $p, $max_a, $id_color) {
     $num_pages = round($max_a/$a);
     $result = '<div class="bg-light">

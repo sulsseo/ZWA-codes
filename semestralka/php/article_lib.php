@@ -1,4 +1,8 @@
 <?php
+/**
+ * Article handler library
+ */
+
 require_once("db_lib.php");
 
 /**
@@ -14,9 +18,10 @@ function get_title($id_article)
 }
 
 /**
- * TODO
- * @param $id_article
- * @return mixed
+ * Get perex of specified article from db
+ *
+ * @param $id_article int of article
+ * @return mixed plain text of article's perex
  */
 function get_perex($id_article)
 {
@@ -25,9 +30,10 @@ function get_perex($id_article)
 }
 
 /**
- * TODO
- * @param $id_article
- * @return mixed
+ * Get body of specified article from db
+ *
+ * @param $id_article int of article
+ * @return mixed plain text of article's body
  */
 function get_body($id_article)
 {
@@ -36,9 +42,10 @@ function get_body($id_article)
 }
 
 /**
- * TODO
- * @param $id_article
- * @return mixed
+ * Get modified body of article from db. Add more breaks after paragraph
+ *
+ * @param $id_article int of article
+ * @return mixed plain text of article's body with more breaks
  */
 function get_body2($id_article)
 {

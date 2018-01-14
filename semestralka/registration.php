@@ -11,13 +11,19 @@ ob_start();
  *
  * Return:  true - no record, we can add user
  *          false - we have record, select new one
+ *
+ * @param $user plain text user from form
+ * @param $password plain text pass from form
+ * @return bool return true if check was positive, false otherwise
  */
-function check($user)
+function check($user, $password)
 {
     if (is_array(get_user_by_mail($user))) {
         return false;
     } else {
-        return true;
+        if (strlen($password) < 8) {
+            return false;
+        } else return true;
     }
 }
 
@@ -26,7 +32,7 @@ if (count(array_filter($_POST)) === 4) {
     $firstname = $_POST["firstname"];
     $password = $_POST["pass"];
 
-    if (check($user)) {
+    if (check($user, $password)) {
         add_user($firstname, $user, $password);
 
         header("Location: login.php?m=1");
