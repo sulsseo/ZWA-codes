@@ -128,8 +128,8 @@ function add_user($name, $email, $plain_password)
         $query = $conn->prepare('INSERT INTO user (id_user, name, email, password, registration) VALUES (?, ?, ?, ?, ?)');
         $query->execute(array($id, $name, $email, $pass, $reg));
 
-//        // commit the transaction
-//        $conn->commit();
+        // commit the transaction
+        $conn->commit();
 
     } catch (PDOException $e) {
         // roll back the transaction if something failed

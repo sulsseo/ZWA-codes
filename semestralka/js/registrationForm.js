@@ -21,7 +21,7 @@ function email_check(event) {
 
 function pass_check(event) {
     // both are the same?
-    if (pass.value === pass2.value && pass !== "" && pass.value.length < 8) {
+    if (pass.value === pass2.value && pass !== "" && pass.value.length >= 8) {
         pass.classList.remove("fail");
         pass2.classList.remove("fail");
 

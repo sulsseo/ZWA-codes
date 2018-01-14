@@ -14,16 +14,16 @@ ob_start();
  *
  * @param $user plain text user from form
  * @param $password plain text pass from form
- * @return bool return true if check was positive, false otherwise
+ * @return string with response
  */
 function check($user, $password)
 {
     if (is_array(get_user_by_mail($user))) {
-        return false;
+        return 'Email je již obsazen.';
     } else {
         if (strlen($password) < 8) {
-            return false;
-        } else return true;
+            return 'Heslo musí být aspoň 8 znaků dlouhé.';
+        } else return '';
     }
 }
 
@@ -32,13 +32,13 @@ if (count(array_filter($_POST)) === 4) {
     $firstname = $_POST["firstname"];
     $password = $_POST["pass"];
 
-    if (check($user, $password)) {
+    $info = check($user, $password);
+
+    if (empty($info)) {
         add_user($firstname, $user, $password);
 
         header("Location: login.php?m=1");
         die();
-    } else {
-        $info = "<h3>Email je již obsazený</h3>";
     }
 }
 ?>
@@ -78,17 +78,22 @@ if (count(array_filter($_POST)) === 4) {
         <?php echo htmlspecialchars($info) ?>
     </div>
     <div class="col-lg-8 mx-auto">
-        <label for="firstname">Jmeno</label>
+        <label for="firstname">Jmeno *</label>
         <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($firstname) ?>" required>
 
-        <label for="email">Email*</label>
+        <label for="email">Email *</label>
         <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user) ?>" required>
 
-        <label for="password">Heslo*</label>
+        <label for="password">Heslo *</label>
         <input id="password" type="password" name="pass" required>
 
-        <label for="password2">Potvrdit heslo*</label>
+        <label for="password2">Potvrdit heslo *</label>
         <input id="password2" type="password" name="pass2" required>
+
+        <div class="container">
+            <p>heslo musí být alespoň 8 znaků dlouhé</p>
+            <p>položky označené * jsou povinné</p>
+        </div>
 
         <button class="btn btn-primary btn-block" type="submit">Registrovat</button>
     </div>
