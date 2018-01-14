@@ -78,17 +78,17 @@ if (count(array_filter($_POST)) === 4) {
         <?php echo htmlspecialchars($info) ?>
     </div>
     <div class="col-lg-8 mx-auto">
-        <label>Jmeno</label>
-        <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($firstname) ?>" require>
+        <label for="firstname">Jmeno</label>
+        <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($firstname) ?>" required>
 
-        <label>Email</label>
-        <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user) ?>" require>
+        <label for="email">Email*</label>
+        <input id="email" type="email" name="user" value="<?php echo htmlspecialchars($user) ?>" required>
 
-        <label>Heslo</label>
-        <input id="password" type="password" name="pass" require>
+        <label for="password">Heslo*</label>
+        <input id="password" type="password" name="pass" required>
 
-        <label>Potvrdit heslo</label>
-        <input id="password2" type="password" name="pass2" require>
+        <label for="password2">Potvrdit heslo*</label>
+        <input id="password2" type="password" name="pass2" required>
 
         <button class="btn btn-primary btn-block" type="submit">Registrovat</button>
     </div>

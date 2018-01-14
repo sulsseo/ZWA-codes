@@ -1,4 +1,7 @@
 <?php
+/**
+ * Example of rubric page
+ */
 
 ob_start();
 

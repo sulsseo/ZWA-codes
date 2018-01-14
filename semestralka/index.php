@@ -1,9 +1,7 @@
 <?php
 /**
- *  TODO
+ *  Main index page
  */
-
-
 
 ob_start();
 

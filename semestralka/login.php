@@ -59,10 +59,10 @@ switch ($status) {
             <div class="container">Přihlášení bylo neúspěšné, zkuste to znovu</div>
             <div class="col-lg-8 mx-auto">
                 <label>Email</label>
-                <input id="email" type="email" value="" name="email" require>
+                <input id="email" type="email" value="" name="email" required>
         
                 <label>Heslo</label>
-                <input id="password" type="password" name="pass" require>
+                <input id="password" type="password" name="pass" required>
         
                 <button class="btn btn-primary btn-block" type="submit">Přihlásit</button>
                 <a href="registration.php" class="btn btn-info btn-block">Registrovat</a>

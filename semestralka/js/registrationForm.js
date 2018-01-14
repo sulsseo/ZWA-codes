@@ -28,6 +28,8 @@ function pass_check(event) {
         pass.classList.add("succ");
         pass2.classList.add("succ");
     } else {
+        event.preventDefault();
+
         pass.classList.remove("succ");
         pass2.classList.remove("succ");
 

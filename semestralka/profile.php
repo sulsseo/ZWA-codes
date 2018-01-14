@@ -107,7 +107,7 @@ $name = $user['name'];
             <tr>
                 <th>Změna barvy</th>
                 <td>
-                    <select id="color-pick">
+                    <select id="color-pick" title="">
                         <option value="1">tmavě šedá</option>
                         <option value="2">modrá</option>
                         <option value="3">světle šedá</option>
