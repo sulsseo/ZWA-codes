@@ -22,8 +22,20 @@ if (!empty($_GET['color'])) {
     $_SESSION[$_COOKIE['SID']]['color'] = $_GET['color'];
 }
 
+$selected = array(
+        1 => '',
+        2 => '',
+        3 => '',
+        4 => '',
+        5 => ''
+);
+$id_color = $_SESSION[$_COOKIE['SID']]['color'];
+
+$selected[$id_color] = 'selected';
+
 $email = $_SESSION[$_COOKIE['SID']]['mail'];
-$color = get_bgcolor_class($_SESSION[$_COOKIE['SID']]['color']);
+
+$color = get_bgcolor_class($id_color);
 
 switch ($color) {
     case 'bg-dark':
@@ -82,15 +94,12 @@ $name = $user['name'];
 </nav>
 
 
-<header>
-    <div class="text-center col-lg-8 mx-auto">
-        <img src="images/avatar.png" alt="avatar picture">
-    </div>
-</header>
-
 <section>
-    <!--    <div class="col-lg-8 mx-auto">-->
-    <div class="container">
+    <div class="custom-form">
+        <h1>Profil</h1>
+        <div class="py-5 text-center col-lg-8 mx-auto">
+            <img src="images/avatar.png" alt="avatar picture">
+        </div>
         <table class="table table-bordered">
             <tbody>
             <tr>
@@ -107,37 +116,28 @@ $name = $user['name'];
             </tr>
             <tr>
                 <th>Zvolená barva</th>
-                <td><?php echo $color; ?></td>
+                <td> <?php echo $color; ?></td>
             </tr>
             <tr>
-                <th>Změna barvy</th>
+                <th>Změna barvy vzhledu</th>
                 <td>
-                    <select id="color-pick" title="">
-                        <option value="1">tmavě šedá</option>
-                        <option value="2">modrá</option>
-                        <option value="3">světle šedá</option>
-                        <option value="4">zelená</option>
-                        <option value="5">žlutá</option>
-                        <option value="6">červená</option>
+                    <select name="color" id="color-pick" title="" form="submiter">
+                        <option value="1" <?php echo $selected[1];?>>tmavě šedá</option>
+                        <option value="2" <?php echo $selected[2];?>>modrá</option>
+                        <option value="3" <?php echo $selected[3];?>>světle šedá</option>
+                        <option value="4" <?php echo $selected[4];?>>zelená</option>
+                        <option value="5" <?php echo $selected[5];?>>žlutá</option>
                     </select>
                 </td>
             </tr>
             </tbody>
         </table>
+        <form method="GET" action="profile.php" id="submiter">
+            <button class="btn btn-primary btn-block" type="submit">Uložit</button>
+            <a href="index.php" class="btn btn-info btn-block">Domů</a>
+        </form>
     </div>
 </section>
 
-<script>
-    function color_picker() {
-        var req = new XMLHttpRequest();
-        var str = "profile.php?color=".concat(select.value);
-        req.open("GET", str);
-        req.send(null);
-    }
-    var select = document.getElementById("color-pick");
-    select.addEventListener("change", color_picker);
-</script>
-
 </body>
-
 </html>
